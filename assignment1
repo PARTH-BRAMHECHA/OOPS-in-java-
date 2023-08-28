@@ -96,7 +96,7 @@ public static void main(String arg[])
     System.out.println("\nSubtraction :");
     res.print();
     
-    // calling mul() to perform addition
+    // calling mul() to perform multiplication
      res = mul(c1, c2);
      // displaying multiplication
     System.out.println("\nMultiplication is :");
