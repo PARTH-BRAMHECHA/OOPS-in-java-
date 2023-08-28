@@ -1,111 +1,139 @@
-// Java program to add two complex numbers import java.util.Scanner; class Complex { //declaration of variables float real, imag;
+// Java program to add two complex numbers
+import java.util.*;
+class ComplexNumber {
 
-//constructor fuction public Complex(float r, float i) { this.real = r; this.imag = i; }
+	// variables to hold real and imaginary part of complex
+	// number
+	float real, imag;
 
-//function to print a number
-public void print()
+	// Constructor which will be used while creating complex
+	// number
+	public ComplexNumber(float r,float i)
+	{
+		this.real = r;
+		this.imag = i;
+	}
+
+	// function to print real number
+	public void showC()
+	{
+		System.out.print(this.real + " +i" + this.imag);
+	}
+
+	// function for addition
+	public static ComplexNumber add(ComplexNumber n1,
+									ComplexNumber n2)
+	{
+
+		// creating blank complex number
+		// to store result
+		ComplexNumber res = new ComplexNumber(0, 0);
+
+		// adding real parts of both complex numbers
+		res.real = n1.real + n2.real;
+
+		// adding imaginary parts
+		res.imag = n1.imag + n2.imag;
+
+		// returning result
+		return res;
+	}
+	//function for subtraction
+    public static ComplexNumber sub(ComplexNumber n1,ComplexNumber n2)
 {
-    System.out.println(this.real + " +i" + this.imag);
-}
-
-// function for addition
-public static Complex add(Complex n1,Complex n2)
-{
-     Complex res = new Complex(0, 0);
-
-    // adding real parts of both complex numbers
-    res.real = n1.real + n2.real;
-
-    // adding imaginary parts
-    res.imag = n1.imag + n2.imag;
-
-    // returning result
-    return res;
-}
-
-//function for subtraction
-    public static Complex sub(Complex n1,Complex n2)
-{
-     Complex res = new Complex(0, 0);
-
-    // adding real parts of both complex numbers
-    res.real = n1.real - n2.real;
-
-    // adding imaginary parts
-    res.imag = n1.imag - n2.imag;
-
-    // returning result
-    return res;
+     ComplexNumber res = new ComplexNumber(0, 0);
+     // adding real parts of both complex numbers
+     res.real = n1.real - n2.real;
+     // adding imaginary parts
+     res.imag = n1.imag - n2.imag;
+     // returning result
+     return res;
 }
 
     //function for multiplication
-    public static Complex mul(Complex n1,Complex n2)
+    public static ComplexNumber mul(ComplexNumber n1,ComplexNumber n2)
 {
-     Complex res = new Complex(0, 0);
-
-    res.real = (n1.real*n2.real - n1.imag*n2.imag);
-
-    res.imag = n1.real*n2.imag + n1.imag*n2.real;
-
+     ComplexNumber res = new ComplexNumber(0, 0);
+     res.real = (n1.real*n2.real - n1.imag*n2.imag);
+     res.imag = n1.real*n2.imag + n1.imag*n2.real;
     // returning result
     return res;
 }
 
     //function for division
-    public static Complex div(Complex n1,Complex n2)
+    public static ComplexNumber div(ComplexNumber n1,ComplexNumber n2)
 {
-     Complex res = new Complex(0, 0);
-
-    res.real = (n1.real*n2.real - n1.imag*n2.imag)/(n2.real*n2.real+n2.imag*n2.imag);
-
-   res.imag = (n1.imag*n2.real - n1.real*n2.imag)/(n2.real*n2.real+n2.imag*n2.imag);
-
+     ComplexNumber res = new ComplexNumber(0, 0);
+     res.real = (n1.real*n2.real - n1.imag*n2.imag)/(n2.real*n2.real+n2.imag*n2.imag);
+     res.imag = (n1.imag*n2.real - n1.real*n2.imag)/(n2.real*n2.real+n2.imag*n2.imag);
     // returning result
-    return res;
+     return res;
 }
 
-public static void main(String arg[])
-{
-    //Taking input of the two complex number using scanner
-    // creating two complex numbers
-    Scanner sc = new Scanner(System.in);
-    Complex res;
-    float a,b,c,d;
-    System.out.print("Enter the real part of the first number\n");
-    a=sc.nextFloat();
-    System.out.println("Enter the imaginary part of the first number");
-    b=sc.nextFloat();
-    System.out.println("Enter the real part of the second number");
-    c=sc.nextFloat();
-    System.out.println("Enter the imaginary part of the second number");
-    d=sc.nextFloat();
+    public static void main(String arg[])
+    {
+        //Taking input of the two complex number using scanner
+        // creating two complex numbers
+        Scanner sc = new Scanner(System.in);
+        //Complex res;
+        float a,b,c,d;
+        System.out.print("Enter the real part of the first number\n");
+        a=sc.nextFloat();
+        System.out.println("Enter the imaginary part of the first number");
+        b=sc.nextFloat();
+        System.out.println("Enter the real part of the second number");
+        c=sc.nextFloat();
+        System.out.println("Enter the imaginary part of the second number");
+        d=sc.nextFloat();
     
-    //making objects
-    Complex c1 = new Complex(a,b);
-    Complex c2 = new Complex(c,d);
+		// creating two complex numbers
+		ComplexNumber c1 = new ComplexNumber(a, b);
+		ComplexNumber c2 = new ComplexNumber(c, d);
 
-   // calling add() to perform addition
-     res = add(c1, c2);
-     // displaying addition
-    System.out.println("\nAddition is :");
-    res.print();
-    
-    // calling sub() to perform subtraction
-     res = sub(c1,c2);
-     // displaying addition
-    System.out.println("\nSubtraction :");
-    res.print();
-    
-    // calling mul() to perform multiplication
-     res = mul(c1, c2);
-     // displaying multiplication
-    System.out.println("\nMultiplication is :");
-    res.print();
-    
-    // calling div()) to perform division
-     res = add(c1, c2);
-     // displaying division
-    System.out.println("\nDivision is :");
-    res.print();
-}
+		// printing complex numbers
+		System.out.print("first Complex number: ");
+		c1.showC();
+		
+		System.out.print("\nSecond Complex number: ");
+		c2.showC();
+
+        System.out.println("Please enter your choice :\n 1 for addition \n 2 for subtraction \n 3 for Multiplication \n 4 for Division");
+        int ch=sc.nextInt();
+        switch(ch){
+            case 1:{
+		         // calling add() to perform addition
+	           	ComplexNumber res_add = add(c1, c2);
+	        	// displaying addition
+		        System.out.println("\nAddition is :");
+	        	res_add.showC();
+                break;
+            }
+		    case 2:{
+                 // calling sub() to perform subtraction
+                 ComplexNumber res_sub = sub(c1,c2);
+                 // displaying subtraction
+                 System.out.println("\nSubtraction :");
+                 res_sub.showC();
+                break;}
+             
+            case 3:{
+                  // calling mul() to perform multiplication
+                ComplexNumber res_mul = mul(c1, c2);
+                // displaying multiplication
+                System.out.println("\nMultiplication is :");
+                res_mul.showC();
+                break;
+            }
+             case 4:{
+                 // calling div()) to perform division
+                ComplexNumber res_div = add(c1, c2);
+                // displaying division
+                System.out.println("\nDivision is :");
+                 res_div.showC();
+                  break;
+               }
+             default:
+                System.out.println("Wrong input");
+        }
+	}
 }
