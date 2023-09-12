@@ -1,3 +1,10 @@
+/*
+    Name:Parth Anand Bramhecha
+    Batch:E-9
+    Assingmnet 1
+    Roll number:23115
+    Date Of Submission: 13-09-23
+*/
 // Java program to perform mathematical operations on two complex numbers
 import java.util.*;
 class ComplexNumber {
@@ -19,8 +26,7 @@ class ComplexNumber {
 	}
 
 	// function for addition
-	public static ComplexNumber add(ComplexNumber n1,
-									ComplexNumber n2)
+	public static ComplexNumber add(ComplexNumber n1,ComplexNumber n2)
 	{
 
 		// creating blank complex number to store result
