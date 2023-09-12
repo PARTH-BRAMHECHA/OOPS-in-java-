@@ -1,20 +1,18 @@
-// Java program to add two complex numbers
+// Java program to perform mathematical operations on two complex numbers
 import java.util.*;
 class ComplexNumber {
 
-	// variables to hold real and imaginary part of complex
-	// number
+	// variables to hold real and imaginary part of complex number::instance variables
 	float real, imag;
 
-	// Constructor which will be used while creating complex
-	// number
+	// Constructor method
 	public ComplexNumber(float r,float i)
 	{
 		this.real = r;
 		this.imag = i;
 	}
 
-	// function to print real number
+	// function to print the Number as real+i imaginary
 	public void showC()
 	{
 		System.out.print(this.real + " +i" + this.imag);
@@ -25,8 +23,7 @@ class ComplexNumber {
 									ComplexNumber n2)
 	{
 
-		// creating blank complex number
-		// to store result
+		// creating blank complex number to store result
 		ComplexNumber res = new ComplexNumber(0, 0);
 
 		// adding real parts of both complex numbers
@@ -41,10 +38,11 @@ class ComplexNumber {
 	//function for subtraction
     public static ComplexNumber sub(ComplexNumber n1,ComplexNumber n2)
 {
+     // creating blank complex number to store result
      ComplexNumber res = new ComplexNumber(0, 0);
-     // adding real parts of both complex numbers
+     // subtracting real parts of both complex numbers
      res.real = n1.real - n2.real;
-     // adding imaginary parts
+     // subtrcating imaginary parts
      res.imag = n1.imag - n2.imag;
      // returning result
      return res;
@@ -53,7 +51,9 @@ class ComplexNumber {
     //function for multiplication
     public static ComplexNumber mul(ComplexNumber n1,ComplexNumber n2)
 {
+    // creating blank complex number to store result
      ComplexNumber res = new ComplexNumber(0, 0);
+     //calculating real and imaginary part as per the formula
      res.real = (n1.real*n2.real - n1.imag*n2.imag);
      res.imag = n1.real*n2.imag + n1.imag*n2.real;
     // returning result
@@ -64,6 +64,7 @@ class ComplexNumber {
     public static ComplexNumber div(ComplexNumber n1,ComplexNumber n2)
 {
      ComplexNumber res = new ComplexNumber(0, 0);
+     //calculating real and imaginary part as per the formula
      res.real = (n1.real*n2.real - n1.imag*n2.imag)/(n2.real*n2.real+n2.imag*n2.imag);
      res.imag = (n1.imag*n2.real - n1.real*n2.imag)/(n2.real*n2.real+n2.imag*n2.imag);
     // returning result
@@ -73,27 +74,27 @@ class ComplexNumber {
     public static void main(String arg[])
     {
         //Taking input of the two complex number using scanner
-        // creating two complex numbers
         Scanner sc = new Scanner(System.in);
-        //Complex res;
+        //declaring variables to hold the values
         float a,b,c,d;
         System.out.print("Enter the real part of the first number\n");
-        a=sc.nextFloat();
+        a=sc.nextFloat(); //taking input of real part of first number
         System.out.println("Enter the imaginary part of the first number");
-        b=sc.nextFloat();
+        b=sc.nextFloat(); //taking input of imaginary part of first number
         System.out.println("Enter the real part of the second number");
-        c=sc.nextFloat();
+        c=sc.nextFloat(); //taking input of real part of second number
         System.out.println("Enter the imaginary part of the second number");
-        d=sc.nextFloat();
+        d=sc.nextFloat(); //taking input of imaginary part of second number
     
-		// creating two complex numbers
+		// creating two complex numbers 
 		ComplexNumber c1 = new ComplexNumber(a, b);
 		ComplexNumber c2 = new ComplexNumber(c, d);
 
-		// printing complex numbers
+		// printing complex number 1
 		System.out.print("first Complex number: ");
 		c1.showC();
 		
+		//printing complex number 2
 		System.out.print("\nSecond Complex number: ");
 		c2.showC();
 
