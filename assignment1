@@ -22,8 +22,14 @@ class ComplexNumber {
 	// function to print the Number as real+i imaginary
 	public void showC()
 	{
-		System.out.print(this.real + " +i" + this.imag);
+		System.out.println(this.real + "+"+ this.imag+" i");
 	}
+
+    // function to print the Number as real-i imaginary
+    public void showC(int a)
+    {
+        System.out.println(this.real + " "+ this.imag+" i");
+    }
 
 	// function for addition
 	public static ComplexNumber add(ComplexNumber n1,ComplexNumber n2)
@@ -97,22 +103,31 @@ class ComplexNumber {
 		ComplexNumber c2 = new ComplexNumber(c, d);
 
 		// printing complex number 1
-		System.out.print("first Complex number: ");
-		c1.showC();
-		
+		System.out.print("\nfirst Complex number: ");
+        if(b>0)
+		    c1.showC();
+        else
+            c1.showC(0);    
 		//printing complex number 2
-		System.out.print("\nSecond Complex number: ");
-		c2.showC();
+		System.out.print("Second Complex number: ");
+        if(d>0)
+		    c2.showC();
+        else
+            c2.showC(0);    
 
-        System.out.println("Please enter your choice :\n 1 for addition \n 2 for subtraction \n 3 for Multiplication \n 4 for Division");
+        System.out.println("\n Please enter your choice :\n 1 for addition \n 2 for subtraction \n 3 for Multiplication \n 4 for Division ");
         int ch=sc.nextInt();
+        System.out.println("\n\nThe choice is: "+ch);
         switch(ch){
             case 1:{
 		         // calling add() to perform addition
 	           	ComplexNumber res_add = add(c1, c2);
 	        	// displaying addition
 		        System.out.println("\nAddition is :");
-	        	res_add.showC();
+                if(res_add.imag>0)
+	        	    res_add.showC();
+                else
+                    res_add.showC(1);        
                 break;
             }
 		    case 2:{
@@ -120,7 +135,10 @@ class ComplexNumber {
                  ComplexNumber res_sub = sub(c1,c2);
                  // displaying subtraction
                  System.out.println("\nSubtraction :");
-                 res_sub.showC();
+                 if(res_sub.imag>0)
+                     res_sub.showC();
+                 else
+                     res_sub.showC(1);       
                 break;}
              
             case 3:{
@@ -128,7 +146,10 @@ class ComplexNumber {
                 ComplexNumber res_mul = mul(c1, c2);
                 // displaying multiplication
                 System.out.println("\nMultiplication is :");
-                res_mul.showC();
+                if(res_mul.imag>0)
+                    res_mul.showC();
+                else
+                    res_mul.showC(1);    
                 break;
             }
              case 4:{
@@ -136,7 +157,10 @@ class ComplexNumber {
                 ComplexNumber res_div = add(c1, c2);
                 // displaying division
                 System.out.println("\nDivision is :");
-                 res_div.showC();
+                if(res_div.imag>0)
+                    res_div.showC();
+                else
+                    res_div.showC(1);    
                   break;
                }
              default:
