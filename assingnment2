@@ -1,0 +1,100 @@
+import java.util.Scanner;
+
+class Employee {
+    String emp_name;
+    String Address;
+    int emp_Id;
+    long Mob_no;
+    String mail_id;
+
+    //function to validate employee id
+    int valid(Employee[] e, int j,int temp) {
+        int id;
+        Scanner sc = new Scanner(System.in);
+
+        do {
+
+            System.out.println("Enter the empid ::");
+            id=sc.nextInt();
+            int i;
+            for ( i = 0; i < j; i++) {
+                if (e[i].emp_Id == id) {
+                    System.out.print("Wrong input Employee Id must be unique\n");
+                    break;
+                }
+            }
+            if (i == j){
+                break;
+            }
+
+        } while (true);
+        return id;
+    }
+
+    //function to validate employee name
+    String valid(Employee[] e, int j,String temp) {
+        String name;
+        Scanner sc = new Scanner(System.in);
+
+        do {
+
+            System.out.println("Enter the emp name ::");
+            name=sc.nextLine();
+            int i;
+            for (i = 0; i < j; i++) {
+                if (e[i].emp_name== name) {
+                    System.out.print("wrong input name must be unique");
+                    break;
+                }
+            }
+            if (i == j){
+                break;
+            }
+
+        } while (true);
+        return name;
+    }
+
+    //function to get the data of the employee
+    void Getdata(Employee e[], int j) {
+        Scanner sc = new Scanner(System.in);
+
+        emp_Id = valid(e, j,0);
+        emp_name =valid(e, j,"0");
+
+        System.out.println("Enter the address :: ");
+        Address = sc.nextLine();
+        System.out.println("Enter the Mobile no :: ");
+        Mob_no = sc.nextLong();
+        System.out.println("Enter the mailid :: ");
+        mail_id= sc.next();
+    }
+
+    //function to display the data of the employees
+    void display() {
+        System.out.print(emp_Id+"\t");
+        System.out.print("\t"+emp_name+"\t\t");
+        System.out.print("\t"+Address+"\t\t");
+        System.out.println("\t"+Mob_no);
+    }
+}
+
+public class employee{
+    public static void main(String[] args) {
+        Employee e[] = new Employee[20];
+        Scanner sc = new Scanner(System.in);
+        int j;
+        System.out.println("Enter no of employees you want to enter");
+        j = sc.nextInt();
+        for (int i = 0; i < j; i++) {
+            e[i] = new Employee();
+            e[i].Getdata(e, i);
+        }
+
+        for (int i = 0; i < j; i++) {
+            System.out.println("Details of the employee are::");
+            e[i].display();
+        }
+
+    }
+}
