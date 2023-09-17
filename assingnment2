@@ -1,29 +1,30 @@
 import java.util.Scanner;
 
 class Employee {
-    String emp_name;
-    String Address;
-    int emp_Id;
-    long Mob_no;
-    String mail_id;
+    String empName;
+    String address;
+    String des;
+    int empId;
+    long mobNo;
+    String mailId;
+    public double basicPay=0;
 
-    //function to validate employee id
-    int valid(Employee[] e, int j,int temp) {
+    double da,hra,pf,club,net,gross;
+    // function to validate employee id
+    int valid(Employee[] e, int j, int temp, Scanner sc) {
         int id;
-        Scanner sc = new Scanner(System.in);
-
         do {
 
             System.out.println("Enter the empid ::");
-            id=sc.nextInt();
+            id = sc.nextInt();
             int i;
-            for ( i = 0; i < j; i++) {
-                if (e[i].emp_Id == id) {
-                    System.out.print("Wrong input Employee Id must be unique\n");
+            for (i = 0; i < j; i++) {
+                if (e[i].empId == id) {
+                    System.out.println("Wrong input Employee Id must be unique\n");
                     break;
                 }
             }
-            if (i == j){
+            if (i == j) {
                 break;
             }
 
@@ -31,70 +32,157 @@ class Employee {
         return id;
     }
 
-    //function to validate employee name
-    String valid(Employee[] e, int j,String temp) {
-        String name;
-        Scanner sc = new Scanner(System.in);
+    // function to validate employee mobile number
+    long valid(Scanner sc) {
+        long mob;
+        do {
+            System.out.println("Enter the emp mobile number ::");
+            String mobStr = sc.next();
 
+            if (mobStr.length() == 10) {
+                mob = Long.parseLong(mobStr);
+                break;
+            } else {
+                System.out.println("Mobile number must be a 10-digit number");
+            }
+        } while (true);
+
+        return mob;
+    }
+
+    //function to validate employee mail id
+    String valid(int i,Scanner sc){
+        String mail;
         do {
 
-            System.out.println("Enter the emp name ::");
-            name=sc.nextLine();
-            int i;
-            for (i = 0; i < j; i++) {
-                if (e[i].emp_name== name) {
-                    System.out.print("wrong input name must be unique");
-                    break;
-                }
-            }
-            if (i == j){
+            System.out.println("Enter the mailid :: ");
+            mail = sc.next();
+
+            if (mail.contains("@"))
                 break;
+            else {
+                System.out.println("Enter a valid mail id");
             }
+        }while(true);
 
-        } while (true);
-        return name;
+        return mail;
     }
+    //function to get the designation of the employee
+    void designation(Scanner sc){
+        do {
+            System.out.println("Please enter For designation \n 1 for Programmer \n 2 for TeamLead \n 3 for AssistantProjectManager \n 4 for ProjectManager");
+            int i = sc.nextInt();
+            switch (i) {
+                case 1:
+                    Programmer p=new Programmer();
+                    basicPay=p.salary();
+                    des="Programmer";
+                    break;
+                case 2:
+                    Teamlead T=new Teamlead();
+                    basicPay=T.salary();
+                    des="Teamlead";
+                    break;
+                case 3:
+                    AssistantProjectManager APM=new AssistantProjectManager();
+                    basicPay=APM.salary();
+                    des="AssProjectManager";
+                    break;
+                case 4:
+                    ProjectManager PM=new ProjectManager();
+                    basicPay=PM.salary();
+                    des="ProjectManager";
+                    break;
+                default:
+                    System.out.println("Wrong input please retry");
+            }
+        }while(basicPay==0);
+    }
+    // function to get the data of the employee
+    void getData(Employee e[], int j, Scanner sc) {
 
-    //function to get the data of the employee
-    void Getdata(Employee e[], int j) {
-        Scanner sc = new Scanner(System.in);
-
-        emp_Id = valid(e, j,0);
-        emp_name =valid(e, j,"0");
-
+        empId = valid(e, j, 0, sc);
+        System.out.println("Enter the name :: ");
+        empName = sc.next( );
+        mobNo = valid(sc);
+        sc.nextLine();
         System.out.println("Enter the address :: ");
-        Address = sc.nextLine();
-        System.out.println("Enter the Mobile no :: ");
-        Mob_no = sc.nextLong();
-        System.out.println("Enter the mailid :: ");
-        mail_id= sc.next();
+        address = sc.nextLine();
+        mailId=valid(1,sc);
+
     }
 
-    //function to display the data of the employees
+    // function to display the data of the employees
     void display() {
-        System.out.print(emp_Id+"\t");
-        System.out.print("\t"+emp_name+"\t\t");
-        System.out.print("\t"+Address+"\t\t");
-        System.out.println("\t"+Mob_no);
+        System.out.print(empId + "\t\t");
+        System.out.print(empName + "\t\t");
+        System.out.print(address + "\t\t");
+        System.out.print(mobNo + "\t\t");
+        System.out.print(mailId+"\t\t");
+        System.out.print(des+"\t\t");
+        System.out.print(basicPay+"\t\t");
+        System.out.println(gross);
+    }
+    double getasst() {
+        da=0.97*basicPay;
+        hra=0.1*basicPay;
+        pf=0.12*basicPay;
+        club=0.001*basicPay;
+        return (da+hra+pf+club);
+    }
+    void calculateasst(){
+        gross=basicPay+getasst();
     }
 }
 
-public class employee{
+public class Salary {
     public static void main(String[] args) {
+
         Employee e[] = new Employee[20];
         Scanner sc = new Scanner(System.in);
-        int j;
-        System.out.println("Enter no of employees you want to enter");
-        j = sc.nextInt();
+        System.out.println("Enter the number of employees you want to enter");
+        int j = sc.nextInt();
         for (int i = 0; i < j; i++) {
             e[i] = new Employee();
-            e[i].Getdata(e, i);
+            e[i].getData(e, i, sc);
+            e[i].designation(sc);
+            e[i].calculateasst();
         }
 
+        System.out.println("Details of the employees are::");
+        System.out.println("Employee Id\t\tName\t\tAddress\t\tContact number\t\tEmail-id\t\tDesignation\t\tNet salary\t\tGross salary");
         for (int i = 0; i < j; i++) {
-            System.out.println("Details of the employee are::");
             e[i].display();
         }
 
+        sc.close(); // Close the scanner
+    }
+}
+
+class Programmer extends Employee{
+//use of constructor to give a value to basicPay,which is a variable of class Employee(parent)
+    double salary(){
+        return 40000;
+    }
+}
+class Teamlead extends Employee{
+//use of constructor to give a value to basicPay,which is a variable of class Employee(parent)
+    double salary(){
+        return 60000;
+    }
+
+}
+
+class AssistantProjectManager extends Employee{
+//use of constructor to give a value to basicPay,which is a variable of class Employee(parent)
+    double salary(){
+        return 80000;
+    }
+}
+
+class ProjectManager extends Employee{
+//use of constructor to give a value to basicPay,which is a variable of class Employee(parent)
+    double salary(){
+        return 100000;
     }
 }
