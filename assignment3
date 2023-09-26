@@ -1,0 +1,382 @@
+/*
+Name:Parth Anand Bramhecha
+Batch:E-9
+Assignment 3
+Roll number:23115
+**/
+import java.util.Scanner;
+
+//abstract class declaration
+abstract class Publication
+{
+    private String title;
+    private double price;
+    private int copies;
+
+    //input object declaration
+    Scanner scanner = new Scanner(System.in);
+    //constructor
+    Publication()
+    {
+        title = new String();
+        price = 0.0;
+        copies = 0;
+    }
+
+    //parameterized constructor
+    Publication(String title, double price, int copies)
+    {
+        this.title = title;
+        this.price = price;
+        this.copies = copies;
+    }
+
+    //different methods declaration
+    public void setCopies(int copies)
+    {
+        this.copies = copies;
+    }
+
+    public String getTitle()
+    {
+        return title;
+    }
+
+    public double getPrice()
+    {
+        return price;
+    }
+
+    public int getCopies()
+    {
+        return copies;
+    }
+
+    public boolean search(String compare)
+    {
+        if (compare.equalsIgnoreCase(title))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    //sellCopies method declaration
+    public void sellCopies(int quantity)
+    {
+        System.out.println("Total Publication sell: $" + (quantity * price));
+    }
+}
+
+//extended class book from Publicatio class
+//inheritance
+class Book extends Publication
+{
+    //variables declaration in book class
+    private String author;
+    int x;
+    //book class conctructor
+    Book()
+    {
+        super();
+        author = new String();
+    }
+
+    //book class parameterized constructor
+    Book(String author, String title, double price,int copies)
+    {
+        super(title,price,copies);
+        this.author=author;
+        x = copies;
+    }
+
+    //method override #polymorphism
+    @Override
+    public void sellCopies(int quantity)
+    {
+        if(x>= quantity)
+        {
+            setCopies(x- quantity);
+            System.out.println("Total Book sell price: " + quantity * getPrice());
+            System.out.println(quantity +" books ordered successfully...");
+        }
+        else
+        {
+            System.out.println("Sorry!! Only " + getCopies() + " copies are available...");
+        }
+    }
+
+    //the display function for books
+    public void display(int i)
+    {
+        System.out.println(i+1 + ")\n" + "Title: " + getTitle() +
+                "\n" + "Author: " +author +
+                "\n" + "Price: " + getPrice() +
+                "\n" + "Copies: " + getCopies());
+    }
+}
+
+//inheritance
+//
+class Magazine extends Publication
+{
+
+    private String currentIssue;
+    int x;
+    //constructor for magazine class
+    Magazine()
+    {
+        super();
+        currentIssue = new String();
+        x = 0;
+    }
+    //parameterized constructor for magazine class
+    Magazine(String currentIssue , String title , double price , int copies)
+    {
+        super(title,price,copies);
+        this.currentIssue = currentIssue;
+        x = copies;
+    }
+
+    public void receiveNewIssue(String NewIssue)
+    {
+        currentIssue = NewIssue;
+    }
+    @Override
+    //seelcopies function override #polymorphism
+    public void sellCopies(int quantity)
+    {
+        if(x >= quantity)
+        {
+            setCopies(getCopies() - quantity);
+            System.out.println("Total Magazine sell price : " + quantity * getPrice());
+            System.out.println(quantity +" Magazines ordered successfully...");
+        }
+        else
+        {
+            System.out.println("Sorry!! Only " + getCopies() + " copies are available...");
+        }
+    }
+    //displaying information for magazine class
+    public void display(int i)
+    {
+        System.out.println(i+1 + ")\n" + "Title: " + getTitle() +
+                "\n" + "Current Issue: " + currentIssue +
+                "\n" + "Price: " + getPrice() +
+                "\n" + "Copies: " + getCopies());
+    }
+}
+
+//driver code
+public class Polymorphism{
+    @SuppressWarnings("resource")
+    public static void main(String[] args)
+    {
+        Scanner scanner = new Scanner(System.in);
+
+        //array creation for books information taking all methods and parameters of book class
+        int numberOfBooks;
+        System.out.println("Enter total number of books: ");
+        numberOfBooks = scanner.nextInt();
+        double price;
+        int copies;
+        String title, author;
+        Book bookObjectArray[] = new Book[numberOfBooks];
+
+        for(int i = 0; i < numberOfBooks; i++)
+        {
+            System.out.println("Please enter data for Book " + (i+1) + ": ");
+            System.out.println("- - - - - - - - - - - - ");
+            System.out.println("Title  : ");
+            scanner.nextLine();
+            title = scanner.nextLine();
+            System.out.println("Author  : ");
+            author = scanner.nextLine();
+            System.out.println("Enter Price  : ");
+            price = scanner.nextDouble();
+            System.out.println("Enter Copies :");
+            copies = scanner.nextInt();
+            System.out.println("- - - - - - - - - - - - ");
+            bookObjectArray[i] = new Book(author,title,price,copies);
+        }
+
+        //array creation for magazines information taking all methods and parameters of magazine class
+        System.out.println("\nEnter total number of Magazines: ");
+        int numberOfMagazines = scanner.nextInt();
+        double magazinePrice;
+        int magazineCopies;
+        String magazineTitle, currentIssue;
+        Magazine magazineObjectArray[] = new Magazine[numberOfMagazines];
+        for(int i=0; i < numberOfMagazines; i++)
+        {
+            System.out.println("Please enter data for magazine " + (i+1) + ": ");
+            System.out.println("************************");
+            System.out.println("Title: ");
+            scanner.nextLine();
+            magazineTitle = scanner.nextLine();
+            System.out.println("Current Issue  : ");
+            currentIssue = scanner.nextLine();
+            System.out.println("Price: ");
+            magazinePrice = scanner.nextDouble();
+            System.out.println("Copies :");
+            magazineCopies = scanner.nextInt();
+            System.out.println("************************");
+            magazineObjectArray[i] = new Magazine(currentIssue, magazineTitle, magazinePrice, magazineCopies);
+        }
+
+        //menu driven code
+        int choice = 0, n = 0, position=0;
+        String bookName, magazineName;
+        boolean flag = false;
+        while(true)
+        {
+            //menu for user
+            System.out.println("________________________________________________________________");
+            System.out.println("\n1.Display Books\n2.Display Magazines\n3.Order Books\n4.Order Magazies\n"
+                    + "5.Sell Books\n6.Sell Magazines\n7.Exit");
+            System.out.println("________________________________________________________________");
+            //taking choice from the user
+            System.out.println("Enter Your choice: ");
+            choice = scanner.nextInt();
+            switch(choice)
+            {
+                case 1://displaying book data
+                    System.out.println("Displaying Book data\n");
+                    System.out.println("------- BOOKS -------");
+                    for(int i=0; i < numberOfBooks; i++)
+                    {
+                        bookObjectArray[i].display(i);
+                        System.out.println("\n");
+                    }
+                    break;
+
+                case 2://displaying magazine data
+                    System.out.println("Displaying Magazine data...\n");
+                    System.out.println("------- MAGAZINES -------");
+                    for(int i=0 ; i < numberOfMagazines; i++)
+                    {
+                        magazineObjectArray[i].display(i);
+                        System.out.println("\n");
+                    }
+                    break;
+
+                case 3://case 3 for ordering the books
+                    scanner.nextLine();
+                    System.out.println("Enter the title book to be ordered  : ");
+                    bookName = scanner.nextLine();
+                    for(int i=0; i < numberOfBooks; i++)//traversing the array to find the book name
+                    {
+                        if(bookObjectArray[i].search(bookName))
+                        {
+                            position = i;
+                            flag = true;
+                        }
+                    }
+                    if(flag)
+                    {
+                        System.out.println("Enter Number of copies to be ordered: ");
+                        n = scanner.nextInt();
+
+                        bookObjectArray[position].sellCopies(n);
+                    }
+                    else
+                        System.out.println("Sorry, Book Not Found...\n");
+                    break;
+
+                case 4://case 4 for ordering the magazines
+                    scanner.nextLine();
+                    n = 0;
+                    position =0;
+                    flag = false;
+                    System.out.println("Enter the title of Magazine to be ordered  : ");
+                    magazineName = scanner.nextLine();
+                    for(int i=0; i < numberOfMagazines; i++)//traversing the magazine array to find the name of magazine
+                    {
+                        if(magazineObjectArray[i].search(magazineName))
+                        {
+                            position = i;
+                            flag = true;
+                        }
+                    }
+                    if(flag)
+                    {
+                        System.out.println("Enter Number of copies to be ordered  : ");
+
+                        n = scanner.nextInt();
+
+                        magazineObjectArray[position].sellCopies(n);
+                    }
+                    else
+                        System.out.println("Sorry, Magazine Not Found\n");
+
+                    break;
+
+                case 5://for selling the books
+                    n=0;
+                    position=0;
+                    flag = false;
+                    scanner.nextLine();
+
+                    System.out.println("Enter the title of Book to be sold: ");
+                    bookName = scanner.nextLine();
+
+                    for(int i=0; i < numberOfBooks; i++)
+                    {
+                        if(bookObjectArray[i].search(bookName))
+                        {
+                            position = i;
+                            flag = true;
+                        }
+                    }
+                    if(flag)
+                    {
+                        System.out.println("Enter the number of Books to be sold: ");
+                        n = scanner.nextInt();
+                        bookObjectArray[position].sellCopies(n);
+                    }
+                    else
+                        System.out.println("Sorry, this book is not available");
+
+                    break;
+
+                case 6://for selling the magazines
+                    n=0;
+                    position=0;
+                    flag = false;
+                    scanner.nextLine();
+
+                    System.out.println("Enter the title of Magazine to be sold: ");
+                    magazineName = scanner.nextLine();
+
+                    for(int i=0; i < numberOfMagazines; i++)
+                    {
+                        if(magazineObjectArray[i].search(magazineName))
+                        {
+                            position = i;
+                            flag = true;
+                        }
+                    }
+                    if(flag)
+                    {
+                        System.out.println("Enter the number of Magazines to be sold: ");
+                        n = scanner.nextInt();
+                        magazineObjectArray[position].sellCopies(n);
+                    }
+                    else
+                        System.out.println("Sorry, this magazine is not available");
+
+                    break;
+
+                case 7://after exiting the loop
+                    System.out.println("Thank you for using our services!! :)");
+                    System.exit(0);
+
+                default://default case if user input is out of menu
+                    System.out.println("Please enter a valid choice!!\n");
+            }
+        }
+    }
+}
