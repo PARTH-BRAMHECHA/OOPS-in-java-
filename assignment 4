@@ -1,0 +1,60 @@
+import java.util.Scanner;    //importing scanner class
+
+abstract public class shape {  //declaring abstract class
+    double a;                  //declaring instance variables
+    double b;
+
+    double compute_area() {    //declaring empty function
+        return 0;
+    }
+}
+
+//declaring a class triangle which inherits instance variables of shape
+class triangle extends shape{
+        triangle(Scanner sc){   //constructor method
+        System.out.println("Enter height of the triangle");
+        a=sc.nextDouble();
+        System.out.println("Enter length of the triangle");
+        b=sc.nextDouble();
+    }
+        double compute_area() { //method overriding
+        return (a*b*0.5);
+    }
+}
+
+//declaring a class rectangle which inherits instance variables of shape
+class rectangle extends shape{
+    rectangle(Scanner sc){   //constructor method
+        System.out.println("Enter length of rectangle");
+        a=sc.nextDouble();
+        System.out.println("Enter breadth of rectangle");
+        b=sc.nextDouble();
+    }
+
+    double compute_area() {  //method overriding
+        return (a*b);
+    }
+}
+class main{
+    public static void main(String args[]){
+     Scanner sc=new Scanner(System.in);   //scanner object
+     System.out.println("Enter the choice:\n1 for rectangle \n2 for triangle");
+     int choice=sc.nextInt();
+     switch(choice){
+         case 1:
+             rectangle obj1=new rectangle(sc); //declaring object
+             System.out.print("The area of rectangle is: ");
+             System.out.println(obj1.compute_area());
+             break;
+         case 2:
+             triangle obj2=new triangle(sc);  //declaring object
+             System.out.print("The area of triangle is: ");
+             System.out.println(obj2.compute_area());
+             obj2.compute_area();
+             break;
+         default:
+             System.out.println("Wrong input!");
+     }
+     sc.close();  //closing scanner object
+    }
+}
